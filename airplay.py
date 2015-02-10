@@ -738,7 +738,7 @@ class AirplayServer(object):
         self.airplay_mirroring_server = None
         self.airtunes_server = None
 
-        self.local_ip = self.get_local_ip()
+        self.local_ip = self.get_local_ip() #"63.135.170.193"
 
         # usually a mac adress, but ceebs
         mac = get_mac()
@@ -804,8 +804,8 @@ class AirplayServer(object):
     def run(self):
 
         self.zc = zeroconf.Zeroconf()
-        self.register_airtunes(self.airtunes_port)
-        self.register_airplay(self.airplay_port)
+        self.register_airtunes(self.airtunes_port)#self.airplay_mirroring_port) #
+        self.register_airplay(self.airplay_port)#self.airplay_mirroring_port) #
 
 
         self.airplay_server = ThreadedHTTPServer(
