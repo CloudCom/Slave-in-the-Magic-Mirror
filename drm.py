@@ -38,10 +38,11 @@ class FairPlaySAP(object):
         self.sapInfo = self.p.cpu.ld_word(pSapInfo)
 
     def challenge(self, type_, data, stage):
+        #print 'challenge: type='+str(type_)+', stage='+str(stage)
         if stage == 0:
-            assert len(data) == 16
+            assert len(data) == 16, "invalid challenge length: %d" % len(data)
         elif stage == 1:
-            assert len(data) == 164
+            assert len(data) == 164, "invalid challenge length: %d" % len(data)
         else:
             assert False
 
@@ -75,10 +76,11 @@ class FairPlaySAP(object):
         # print "out_stage", out_stage
 
         if stage == 0:
-            assert out_length == 0x8e
-            assert out_stage == 1
+            assert out_length == 0x8e, "invalid challenge response length: %d" % out_length
+            assert out_stage == 1, "invalid challenge stage: %d" % out_stage
         else:
-            assert out_stage == 0
+            assert out_length == 0x20, "invalid challenge response length: %d" % out_length
+            assert out_stage == 0, "invalid challenge stage: %d" % out_stage
 
         return self.p.copyout(out_data, out_length)
 
