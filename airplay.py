@@ -728,7 +728,7 @@ class AirplayServer(object):
     def __init__(self, airtunesd_filename=None):
         self.airtunesd_filename = airtunesd_filename
 
-        self.airtunes_port = 49152
+        self.airtunes_port = 7010
         self.airplay_port = 7000
         self.airplay_mirroring_port = 7100
 
