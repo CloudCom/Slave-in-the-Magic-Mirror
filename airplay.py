@@ -25,6 +25,8 @@ import zeroconf
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
+from uuid import getnode as get_mac
+
 import drm
 
 import aac
@@ -739,8 +741,11 @@ class AirplayServer(object):
         self.local_ip = self.get_local_ip()
 
         # usually a mac adress, but ceebs
-        self.device_id = ("11", "22", "33", "44", "55", "66")
-        self.service_name = "Slave in the Magic Mirror"
+        mac = get_mac()
+        self.device_id = ":".join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2)).split(":")
+        self.service_name = socket.gethostname().split(".")[0]
+
+        print "service_name: " + self.service_name + ", device_id: " + ":".join(self.device_id) + ", ip: " + self.local_ip
 
         self.connections = defaultdict(lambda: AirplayConnection(self))
 
